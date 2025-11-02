@@ -1,5 +1,6 @@
 // src/pages/Home.jsx
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [msg, setMsg] = useState("");
@@ -35,9 +36,9 @@ const Home = () => {
         <li>개인 역량: React + Spring Boot 풀스택 포트폴리오 구축 중</li>
       </ul>
       <div className="actions">
-        <a className="btn primary" href="/projects">
+        <Link className="btn primary" to="/projects">
           👉 Projects 바로가기
-        </a>
+        </Link>
         <a
           className="btn"
           href="https://github.com/nongnongdev"
