@@ -1,5 +1,25 @@
 // src/pages/Home.jsx
+import React, { useState } from "react";
+
 const Home = () => {
+  const [msg, setMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const API_BASE = process.env.REACT_APP_API_BASE || "http://localhost:8080";
+
+  const testBackend = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/api/ping`);
+      const text = await res.text();
+      setMsg(text);
+    } catch (e) {
+      setMsg("요청 실패: " + e.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="page">
       <p className="badge">Backend-centered Fullstack</p>
@@ -26,7 +46,11 @@ const Home = () => {
         >
           GitHub
         </a>
+        <button className="btn" onClick={testBackend} disabled={loading}>
+          {loading ? "요청중..." : "백엔드 테스트"}
+        </button>
       </div>
+      {msg && <p style={{ marginTop: "1rem" }}>백엔드 응답: {msg}</p>}
     </div>
   );
 };
